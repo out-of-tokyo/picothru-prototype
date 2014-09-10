@@ -15,6 +15,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'grape'
 gem 'webpay'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'railroady'
