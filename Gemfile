@@ -16,6 +16,7 @@ gem 'spring',        group: :development
 gem 'grape'
 gem 'webpay'
 gem 'dotenv-rails'
+gem 'httpclient'
 
 group :development, :test do
   gem 'railroady'

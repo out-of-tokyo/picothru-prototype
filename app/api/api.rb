@@ -11,4 +11,12 @@ class API < Grape::API
       JSON.load(Net::HTTP.get(uri))
     end
   end
+
+  resource :purchase do
+    post do
+      url = "http://#{ENV['POS_SERVER_DOMAIN']}/api/v0/purchase"
+      http_client = HTTPClient.new
+      res = http_client.post_content(url, params.to_json, 'Content-Type' => 'application/json')
+    end
+  end
 end
