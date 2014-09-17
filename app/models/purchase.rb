@@ -13,4 +13,14 @@ class Purchase < ActiveRecord::Base
     self.update( success: true, products: res, ) if res
     res
   end
+
+  def webpay_with token
+    webpay = WebPay.new(ENV['WEBPAY_SECRET'])
+    res = webpay.charge.create(
+            amount: self.total_price,
+            currency: 'jpy',
+            card: token
+          )
+    res.paid # => true
+  end
 end

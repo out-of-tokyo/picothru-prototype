@@ -34,7 +34,10 @@ class API < Grape::API
     post do
       @purchase = Purchase.create( store_id: params[:store_id],
                                    total_price: params[:total_price], )
+
+      # TODO: Ensure the transaction
       @purchase.post_to_pos params
+      @purchase.webpay_with params[:token]
     end
   end
 end
