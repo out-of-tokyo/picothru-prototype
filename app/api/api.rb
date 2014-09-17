@@ -32,9 +32,9 @@ class API < Grape::API
 
   resource :purchase do
     post do
-      @product = Purchase.create( store_id: params[:store_id],
-                                  total_price: params[:total_price], )
-      @product.post_to_pos params
+      @purchase = Purchase.create( store_id: params[:store_id],
+                                   total_price: params[:total_price], )
+      @purchase.post_to_pos params
     end
   end
 end
