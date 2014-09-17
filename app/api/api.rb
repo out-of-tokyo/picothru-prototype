@@ -3,11 +3,30 @@ class API < Grape::API
   version 'v0', using: :path
   format :json
 
+  helpers do
+    def store_params
+      "store_id=#{params[:store_id]}"
+    end
+
+    def barcode_id_params
+      "barcode_id=#{params[:barcode_id]}"
+    end
+
+    def get_from endpoint, *params
+      uri = URI.parse("#{endpoint}?#{params.join('&')}")
+      JSON.load(Net::HTTP.get(uri))
+    end
+  end
+
+  resource :product do
+    get do
+      get_from ENV['PRODUCT_ENDPOINT'], store_params, barcode_id_params
+    end
+  end
+
   resource :products do
     get do
-      parameters = "store_id=#{params[:store_id]}"
-      uri = URI.parse("#{ENV['PRODUCTS_ENDPOINT']}?#{parameters}")
-      JSON.load(Net::HTTP.get(uri))
+      get_from ENV['PRODUCTS_ENDPOINT'], store_params
     end
   end
 
