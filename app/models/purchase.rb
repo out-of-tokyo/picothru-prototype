@@ -2,7 +2,7 @@ class Purchase < ActiveRecord::Base
   validates :total_price, presence: true
   validates :success, presence: true
   validates :products, presence: true
-  validates :store_id, presence: true
+  validates :beacon_id, presence: true
 
   def post_to_pos params
     http_client = HTTPClient.new

@@ -4,8 +4,8 @@ class API < Grape::API
   format :json
 
   helpers do
-    def store_params
-      "store_id=#{params[:store_id]}"
+    def beacon_id_params
+      "beacon_id=#{params[:beacon_id]}"
     end
 
     def barcode_id_params
@@ -21,25 +21,25 @@ class API < Grape::API
 
   resource :product do
     get do
-      get_from ENV['PRODUCT_ENDPOINT'], store_params, barcode_id_params
+      get_from ENV['PRODUCT_ENDPOINT'], beacon_id_params, barcode_id_params
     end
   end
 
   resource :products do
     get do
-      get_from ENV['PRODUCTS_ENDPOINT'], store_params
+      get_from ENV['PRODUCTS_ENDPOINT'], beacon_id_params
     end
   end
 
   resource :newspapers do
     get do
-      get_from ENV['NEWSPAPERS_ENDPOINT'], store_params
+      get_from ENV['NEWSPAPERS_ENDPOINT'], beacon_id_params
     end
   end
 
   resource :purchase do
     post do
-      @purchase = Purchase.create( store_id: params[:store_id],
+      @purchase = Purchase.create( beacon_id: params[:beacon_id],
                                    total_price: params[:total_price], )
 
       # TODO: Ensure the transaction
