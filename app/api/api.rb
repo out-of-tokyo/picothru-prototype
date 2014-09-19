@@ -13,8 +13,9 @@ class API < Grape::API
     end
 
     def get_from endpoint, *params
-      uri = URI.parse("#{endpoint}?#{params.join('&')}")
-      JSON.load(Net::HTTP.get(uri).force_encoding('utf-8'))
+      http_client = HTTPClient.new
+      url = "#{endpoint}?#{params.join('&')}"
+      JSON.load(http_client.get_content(url).force_encoding('utf-8'))
     end
   end
 
