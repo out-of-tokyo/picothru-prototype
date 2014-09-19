@@ -30,6 +30,12 @@ class API < Grape::API
     end
   end
 
+  resource :newspapers do
+    get do
+      get_from ENV['NEWSPAPERS_ENDPOINT'], store_params
+    end
+  end
+
   resource :purchase do
     post do
       @purchase = Purchase.create( store_id: params[:store_id],
