@@ -24,7 +24,7 @@ RSpec.describe Purchase, :type => :model do
 
     context 'the store_id of the purchase' do
       it 'not null' do
-        expect(purchase.store_id).not_to be_nil
+        expect(purchase.beacon_id).not_to be_nil
       end
     end
   end

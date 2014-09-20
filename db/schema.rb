@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917175338) do
+ActiveRecord::Schema.define(version: 20140919181718) do
 
   create_table "purchases", force: true do |t|
     t.integer  "total_price"
     t.integer  "user_id"
     t.text     "products"
-    t.integer  "store_id"
+    t.integer  "beacon_id"
     t.boolean  "success"
     t.datetime "created_at"
     t.datetime "updated_at"
