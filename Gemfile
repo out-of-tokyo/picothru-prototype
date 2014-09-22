@@ -17,6 +17,7 @@ gem 'grape'
 gem 'webpay'
 gem 'dotenv-rails'
 gem 'httpclient'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'railroady'
