@@ -77,4 +77,6 @@ class API < Grape::API
       end
     end
   end
+
+   add_swagger_documentation api_version: 'v0'
 end

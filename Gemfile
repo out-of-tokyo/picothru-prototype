@@ -18,6 +18,10 @@ gem 'webpay'
 gem 'dotenv-rails'
 gem 'httpclient'
 gem 'newrelic_rpm'
+gem 'grape-entity'
+gem 'rack-contrib'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
 
 group :development, :test do
   gem 'railroady'
