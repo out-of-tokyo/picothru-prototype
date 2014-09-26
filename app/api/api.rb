@@ -6,7 +6,7 @@ class API < Grape::API
     error_response({ message: e.message })
   end
 
-  ALLOWED_PARAMS = [:beacon_id, :barcode_id, :token, :total_price, purchase: [:barcode_id, :amount]].freeze
+  ALLOWED_PARAMS = [:beacon_id, :barcode_id, :token, :total_price, products: [:barcode_id, :amount]].freeze
 
   helpers do
     def allowed_params
@@ -31,8 +31,8 @@ class API < Grape::API
     params :require_barcode_id do requires :barcode_id, type: Integer end
     params :require_webpay_token do requires :token, type: String end
     params :require_total_price do requires :total_price, type: Integer end
-    params :require_purchase do
-      requires :purchase, type: Array do
+    params :require_products do
+      requires :products, type: Array do
         requires :barcode_id
         requires :amount
       end
@@ -62,7 +62,7 @@ class API < Grape::API
 
   resource :purchase do
     params do
-      use :require_beacon_id, :require_webpay_token, :require_purchase, :require_total_price
+      use :require_beacon_id, :require_webpay_token, :require_products, :require_total_price
     end
 
     post do

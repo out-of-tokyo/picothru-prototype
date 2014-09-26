@@ -26,7 +26,7 @@ describe API do
       end
 
       it 'returns the error of missing purchase' do
-        expect(@error_sentences).to include('purchase is missing')
+        expect(@error_sentences).to include('products is missing')
       end
 
       it 'returns the error of missing purchase' do
