@@ -17,20 +17,8 @@ describe API do
         expect(response.status).to eq(500)
       end
 
-      it 'returns the error of missing beacon_id' do
-        expect(@error_sentences).to include('beacon_id is missing')
-      end
-
-      it 'returns the error of missing token' do
-        expect(@error_sentences).to include('token is missing')
-      end
-
-      it 'returns the error of missing purchase' do
-        expect(@error_sentences).to include('products is missing')
-      end
-
-      it 'returns the error of missing purchase' do
-        expect(@error_sentences).to include('total_price is missing')
+      it 'returns the error of missing encrypted_purchase' do
+        expect(@error_sentences).to include('encrypted_purchase is missing')
       end
     end
   end
