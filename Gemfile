@@ -22,6 +22,7 @@ gem 'grape-entity'
 gem 'rack-contrib'
 gem 'grape-swagger'
 gem 'grape-swagger-rails'
+gem 'aescrypt'
 
 group :development, :test do
   gem 'railroady'
