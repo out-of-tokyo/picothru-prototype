@@ -13,17 +13,10 @@ class API < Grape::API
       ActionController::Parameters.new(params).permit(ALLOWED_PARAMS)
     end
 
-    def beacon_id_params
-      "beacon_id=#{allowed_params[:beacon_id]}"
-    end
-
-    def barcode_id_params
-      "barcode_id=#{allowed_params[:barcode_id]}"
-    end
-
-    def get_from endpoint, *params
+    def get_from endpoint, *keys
       http_client = HTTPClient.new
-      url = "#{endpoint}?#{params.join('&')}"
+      params_for_url = keys.map{ |key| "#{key}=#{allowed_params[key]}" }
+      url = "#{endpoint}?#{params_for_url.join('&')}"
       JSON.load(http_client.get_content(url).force_encoding('utf-8'))
     end
 
@@ -41,21 +34,21 @@ class API < Grape::API
   resource :product do
     params { use :require_beacon_id, :require_barcode_id }
     get do
-      get_from ENV['PRODUCT_ENDPOINT'], beacon_id_params, barcode_id_params
+      get_from ENV['PRODUCT_ENDPOINT'], 'beacon_id', 'barcode_id'
     end
   end
 
   resource :products do
     params { use :require_beacon_id }
     get do
-      get_from ENV['PRODUCTS_ENDPOINT'], beacon_id_params
+      get_from ENV['PRODUCTS_ENDPOINT'], 'beacon_id'
     end
   end
 
   resource :newspapers do
     params { use :require_beacon_id }
     get do
-      get_from ENV['NEWSPAPERS_ENDPOINT'], beacon_id_params
+      get_from ENV['NEWSPAPERS_ENDPOINT'], 'beacon_id'
     end
   end
 
