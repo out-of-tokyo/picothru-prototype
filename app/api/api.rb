@@ -58,15 +58,12 @@ class API < Grape::API
     end
 
     post do
-      purchase_str = AESCrypt.decrypt(allowed_params[:encrypted_purchase], ENV['AES_SECRET_KEY'])
-      purchase = JSON.load purchase_str
-      @purchase = Purchase.create( beacon_id: purchase['beacon_id'],
-                                   total_price: purchase['total_price'], )
-      if responce_from_pos = (@purchase.purchase_post_to_pos purchase)
+      @purchase = Purchase.new.init_with allowed_params['encrypted_purchase']
+      if responce_from_pos = @purchase.purchase_post_to_pos
         begin
-          responce_from_webpay = (@purchase.webpay_with purchase['token'])
+          responce_from_webpay = @purchase.webpay
         rescue => e
-          @purchase.cancel_purchase_post_to_pos purchase
+          @purchase.cancel_purchase_post_to_pos
           return e.message
         end
 
