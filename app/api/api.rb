@@ -69,16 +69,16 @@ class API < Grape::API
       purchase = JSON.load purchase_str
       @purchase = Purchase.create( beacon_id: purchase['beacon_id'],
                                    total_price: purchase['total_price'], )
-      if responce_from_pos = (@purchase.purchase_post_to_pos purchase)
+      if response_from_pos = (@purchase.purchase_post_to_pos purchase)
         begin
-          responce_from_webpay = (@purchase.webpay_with purchase['token'])
+          response_from_webpay = (@purchase.webpay_with purchase['token'])
         rescue => e
           @purchase.cancel_purchase_post_to_pos purchase
           return e.message
         end
-
-        { responce_from_pos: responce_from_pos,
-          responce_from_webpay: responce_from_webpay }
+        { response_from_pos: (!!response_from_pos),
+          response_from_webpay: response_from_webpay,
+          purchased_products: JSON.load(response_from_pos) }
       end
     end
   end
