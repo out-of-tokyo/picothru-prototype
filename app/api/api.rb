@@ -76,9 +76,12 @@ class API < Grape::API
           @purchase.cancel_purchase_post_to_pos purchase
           return e.message
         end
+        purchased_products = JSON.load(response_from_pos)
+                             .merge_by_index( purchase['products'],
+                                              'barcode_id' )
         { response_from_pos: (!!response_from_pos),
           response_from_webpay: response_from_webpay,
-          purchased_products: JSON.load(response_from_pos) }
+          purchased_products: purchased_products }
       end
     end
   end
