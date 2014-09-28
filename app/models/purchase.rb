@@ -7,13 +7,13 @@ class Purchase < ActiveRecord::Base
   def purchase_post_to_pos params
     res = (post_to_pos ENV['PURCHASE_ENDPOINT'], params)
     self.update( success: true, products: res, ) if res
-    !!res
+    res
   end
 
   def cancel_purchase_post_to_pos params
     res = (post_to_pos ENV['CANCEL_PURCHASE_ENDPOINT'], params)
     self.update( success: true, products: res, ) if res
-    !!res
+    res
   end
 
   def webpay_with token
